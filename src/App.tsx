@@ -1,16 +1,42 @@
+import { useMemo, useState } from "react";
+import houseData from "./data/houses.json";
+import type { House } from "./debug/validateHtmlToHouseMapping";
+import { filterHouses, type FilterCriteria } from "./lib/filterHouses";
+import FilterPanel from "./components/FilterPanel";
+import ResultList from "./components/ResultList";
+
+const houses = houseData as unknown as House[];
+
+const EMPTY_CRITERIA: FilterCriteria = {
+  district: null,
+  gender: null,
+  maxRent: null,
+  priority: null,
+  target: null,
+};
+
 function App() {
+  const [criteria, setCriteria] = useState<FilterCriteria>(EMPTY_CRITERIA);
+
+  const districts = useMemo(() => {
+    const values = houses
+      .map((h) => h.district)
+      .filter((d): d is string => typeof d === "string");
+    return Array.from(new Set(values)).sort();
+  }, []);
+
+  const results = useMemo(() => filterHouses(houses, criteria), [criteria]);
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50">
-      <div className="rounded-xl bg-white p-8 shadow">
-        <h1 className="text-2xl font-bold text-slate-800">
-          SH 청년 매입임대주택 뷰어
-        </h1>
-        <p className="mt-2 text-slate-500">
-          프로젝트 초기 설정 완료. 기능은 아직 없습니다.
-        </p>
-      </div>
-    </main>
-  )
+    <div style={{ display: "flex" }}>
+      <aside style={{ width: 280, flexShrink: 0 }}>
+        <FilterPanel criteria={criteria} districts={districts} onChange={setCriteria} />
+      </aside>
+      <main style={{ flex: 1 }}>
+        <ResultList houses={results} criteria={criteria} />
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

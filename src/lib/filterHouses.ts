@@ -36,6 +36,20 @@ function rentField(target: Target, priority: Priority): string {
 }
 
 /**
+ * target/priority 조합에 대응하는 deposit/rent 필드 이름을 반환한다.
+ * UI 쪽에서 필터와 동일한 기준으로 가격을 표시할 때 재사용한다.
+ */
+export function getPriceFieldNames(
+  target: Target,
+  priority: Priority
+): { depositField: string; rentField: string } {
+  return {
+    depositField: depositField(target, priority),
+    rentField: rentField(target, priority),
+  };
+}
+
+/**
  * filterHouses 인자를 자동 검증한다. 잘못된 값(오타/타입 불일치)은 즉시 에러를 던져
  * "조건이 없어서 무시된 것"과 "값이 잘못돼서 실수로 다 걸러진 것"을 구분한다.
  * (undefined인 조건은 정상이며 그냥 무시한다)
@@ -91,8 +105,11 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
  * houses 배열을 필터링한다. 각 조건은 값이 주어지지 않으면(undefined 또는 null) 무시된다.
  *
  * - gender: 매물의 gender가 null(성별무관)이면 어떤 요청 gender와도 항상 통과한다.
- * - target: 해당 대상군(청년/대학생및취업준비생) 가격이 아예 제공되지 않는(1순위·2~3순위 보증금이 모두 null) 매물은 제외한다.
- * - priority: 해당 순위(1순위/2~3순위) 가격이 아예 제공되지 않는(청년·대학생 보증금이 모두 null) 매물은 제외한다.
+ * - target만 지정: 해당 대상군 가격이 두 순위 모두에서 제공되지 않는(1순위·2~3순위 보증금이 모두 null) 매물만 제외한다.
+ * - priority만 지정: 해당 순위 가격이 두 대상군 모두에서 제공되지 않는(청년·대학생 보증금이 모두 null) 매물만 제외한다.
+ * - target과 priority를 함께 지정: 그 "정확한 조합"의 보증금이 null인 매물을 제외한다.
+ *   (예: 대학생및취업준비생이 1순위엔 있고 2~3순위엔 없는 매물은, target=student·priority=23 조합에서는 제외되어야 한다.
+ *    target/priority를 각각 독립적으로만 검사하면 이런 매물이 잘못 통과해버린다.)
  * - maxRent: target/priority로 정해지는 임대료 컬럼과 비교한다. target/priority 미지정 시 기본값은 "youth"/"1"이다.
  */
 export function filterHouses(houses: House[], criteria: FilterCriteria = {}): House[] {
@@ -112,13 +129,14 @@ export function filterHouses(houses: House[], criteria: FilterCriteria = {}): Ho
       return false;
     }
 
-    if (isProvided(target)) {
+    if (isProvided(target) && isProvided(priority)) {
+      // target과 priority를 함께 지정한 경우, 그 정확한 조합의 가격이 없으면 제외한다.
+      if (house[depositField(target, priority)] === null) return false;
+    } else if (isProvided(target)) {
       const d1 = house[depositField(target, "1")];
       const d23 = house[depositField(target, "23")];
       if (d1 === null && d23 === null) return false;
-    }
-
-    if (isProvided(priority)) {
+    } else if (isProvided(priority)) {
       const dYouth = house[depositField("youth", priority)];
       const dStudent = house[depositField("student", priority)];
       if (dYouth === null && dStudent === null) return false;

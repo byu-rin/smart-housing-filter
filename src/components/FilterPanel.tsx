@@ -3,6 +3,7 @@ import type { FilterCriteria, Gender, Priority, Target } from "../lib/filterHous
 interface FilterPanelProps {
   criteria: FilterCriteria;
   districts: string[];
+  maxRentCeiling: number;
   onChange: (next: FilterCriteria) => void;
 }
 
@@ -14,25 +15,29 @@ const EMPTY_CRITERIA: FilterCriteria = {
   target: null,
 };
 
-const GENDER_OPTIONS: Array<{ label: string; value: Gender | "" }> = [
-  { label: "전체", value: "" },
+const GENDER_OPTIONS: Array<{ label: string; value: Gender }> = [
   { label: "여성", value: "여성" },
   { label: "남성", value: "남성" },
 ];
 
-const TARGET_OPTIONS: Array<{ label: string; value: Target | "" }> = [
-  { label: "전체", value: "" },
+const TARGET_OPTIONS: Array<{ label: string; value: Target }> = [
   { label: "청년", value: "youth" },
   { label: "대학생 및 취업준비생", value: "student" },
 ];
 
-const PRIORITY_OPTIONS: Array<{ label: string; value: Priority | "" }> = [
-  { label: "전체", value: "" },
+const PRIORITY_OPTIONS: Array<{ label: string; value: Priority }> = [
   { label: "1순위", value: "1" },
   { label: "2~3순위", value: "23" },
 ];
 
-function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
+// 필터를 체크박스로 켤 때 기본으로 채워 넣을 값. 값 자체는 이후 컨트롤에서 바꿀 수 있다.
+const DEFAULTS = {
+  gender: "여성" as Gender,
+  target: "youth" as Target,
+  priority: "1" as Priority,
+};
+
+function FilterPanel({ criteria, districts, maxRentCeiling, onChange }: FilterPanelProps) {
   const set = <K extends keyof FilterCriteria>(key: K, value: FilterCriteria[K]) => {
     onChange({ ...criteria, [key]: value });
   };
@@ -40,12 +45,19 @@ function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
   return (
     <div>
       <div>
-        <label htmlFor="filter-priority">순위</label>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.priority != null}
+            onChange={(e) => set("priority", e.target.checked ? DEFAULTS.priority : null)}
+          />
+          순위
+        </label>
         <br />
         <select
-          id="filter-priority"
+          disabled={criteria.priority == null}
           value={criteria.priority ?? ""}
-          onChange={(e) => set("priority", e.target.value === "" ? null : (e.target.value as Priority))}
+          onChange={(e) => set("priority", e.target.value as Priority)}
         >
           {PRIORITY_OPTIONS.map((o) => (
             <option key={o.label} value={o.value}>
@@ -56,14 +68,20 @@ function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
       </div>
 
       <div>
-        <label htmlFor="filter-district">자치구</label>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.district != null}
+            onChange={(e) => set("district", e.target.checked ? (districts[0] ?? null) : null)}
+          />
+          자치구
+        </label>
         <br />
         <select
-          id="filter-district"
+          disabled={criteria.district == null}
           value={criteria.district ?? ""}
-          onChange={(e) => set("district", e.target.value === "" ? null : e.target.value)}
+          onChange={(e) => set("district", e.target.value)}
         >
-          <option value="">전체</option>
           {districts.map((d) => (
             <option key={d} value={d}>
               {d}
@@ -73,12 +91,19 @@ function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
       </div>
 
       <div>
-        <label htmlFor="filter-gender">성별</label>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.gender != null}
+            onChange={(e) => set("gender", e.target.checked ? DEFAULTS.gender : null)}
+          />
+          성별
+        </label>
         <br />
         <select
-          id="filter-gender"
+          disabled={criteria.gender == null}
           value={criteria.gender ?? ""}
-          onChange={(e) => set("gender", e.target.value === "" ? null : (e.target.value as Gender))}
+          onChange={(e) => set("gender", e.target.value as Gender)}
         >
           {GENDER_OPTIONS.map((o) => (
             <option key={o.label} value={o.value}>
@@ -89,12 +114,19 @@ function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
       </div>
 
       <div>
-        <label htmlFor="filter-target">대상</label>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.target != null}
+            onChange={(e) => set("target", e.target.checked ? DEFAULTS.target : null)}
+          />
+          공급대상
+        </label>
         <br />
         <select
-          id="filter-target"
+          disabled={criteria.target == null}
           value={criteria.target ?? ""}
-          onChange={(e) => set("target", e.target.value === "" ? null : (e.target.value as Target))}
+          onChange={(e) => set("target", e.target.value as Target)}
         >
           {TARGET_OPTIONS.map((o) => (
             <option key={o.label} value={o.value}>
@@ -105,14 +137,21 @@ function FilterPanel({ criteria, districts, onChange }: FilterPanelProps) {
       </div>
 
       <div>
-        <label htmlFor="filter-max-rent">최대 임대료(원)</label>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.maxRent != null}
+            onChange={(e) => set("maxRent", e.target.checked ? maxRentCeiling : null)}
+          />
+          최대 임대료(원)
+        </label>
         <br />
         <input
-          id="filter-max-rent"
           type="number"
           min={0}
+          disabled={criteria.maxRent == null}
           value={criteria.maxRent ?? ""}
-          onChange={(e) => set("maxRent", e.target.value === "" ? null : Number(e.target.value))}
+          onChange={(e) => set("maxRent", e.target.value === "" ? 0 : Number(e.target.value))}
         />
       </div>
 

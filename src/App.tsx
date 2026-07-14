@@ -25,12 +25,31 @@ function App() {
     return Array.from(new Set(values)).sort();
   }, []);
 
+  // 최대 임대료 체크박스를 켰을 때 기본값으로 쓸 상한.
+  // target/priority 조합에 상관없이 어떤 매물도 미리 잘리지 않도록 4개 임대료 컬럼 전체의 최댓값을 쓴다.
+  const maxRentCeiling = useMemo(() => {
+    const rentFields = ["rentYouth1", "rentStudent1", "rentYouth23", "rentStudent23"] as const;
+    let max = 0;
+    houses.forEach((h) => {
+      rentFields.forEach((f) => {
+        const v = h[f];
+        if (typeof v === "number" && v > max) max = v;
+      });
+    });
+    return max;
+  }, []);
+
   const results = useMemo(() => filterHouses(houses, criteria), [criteria]);
 
   return (
     <div style={{ display: "flex" }}>
       <aside style={{ width: 280, flexShrink: 0 }}>
-        <FilterPanel criteria={criteria} districts={districts} onChange={setCriteria} />
+        <FilterPanel
+          criteria={criteria}
+          districts={districts}
+          maxRentCeiling={maxRentCeiling}
+          onChange={setCriteria}
+        />
       </aside>
       <main style={{ flex: 1 }}>
         <ResultList houses={results} criteria={criteria} />

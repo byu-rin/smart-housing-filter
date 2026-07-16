@@ -42,8 +42,8 @@ function App() {
   const results = useMemo(() => filterHouses(houses, criteria), [criteria]);
 
   return (
-    <div style={{ display: "flex" }}>
-      <aside style={{ width: 280, flexShrink: 0 }}>
+    <div className="app-layout">
+      <aside className="app-sidebar">
         <FilterPanel
           criteria={criteria}
           districts={districts}
@@ -51,7 +51,7 @@ function App() {
           onChange={setCriteria}
         />
       </aside>
-      <main style={{ flex: 1 }}>
+      <main className="app-main">
         <ResultList houses={results} criteria={criteria} />
       </main>
     </div>

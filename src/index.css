@@ -1,1 +1,98 @@
 @import "tailwindcss";
+
+:root {
+  --color-border: #DDE2DF;
+  --color-primary: #2F6F5E;
+  --color-primary-tint: rgba(47, 111, 94, 0.18);
+  --color-muted: #8A928E;
+}
+
+@layer base {
+  select,
+  input[type="number"] {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  select:focus,
+  input[type="number"]:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-tint);
+    outline: none;
+  }
+
+  select:disabled,
+  input[type="number"]:disabled {
+    background-color: #F5F5F5;
+    color: var(--color-muted);
+    cursor: not-allowed;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  /* Result List - Card styling */
+  main > div > p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  main > div > ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  main > div > ul > li {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+  }
+
+  main > div > ul > li:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(47, 111, 94, 0.12);
+  }
+
+  /* Typography hierarchy within cards */
+  main > div > ul > li > div:first-child {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  main > div > ul > li > div:nth-child(2) {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  main > div > ul > li > div:nth-child(3) {
+    font-size: 13px;
+    color: var(--color-muted);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  main > div > ul > li > div:last-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding-top: 4px;
+  }
+}

@@ -5,16 +5,23 @@ export type Priority = "1" | "23";
 export type Gender = "여성" | "남성";
 
 export interface FilterCriteria {
-  district?: string;
-  gender?: Gender;
-  maxRent?: number;
-  priority?: Priority;
-  target?: Target;
+  district?: string | null;
+  gender?: Gender | null;
+  maxRent?: number | null;
+  priority?: Priority | null;
+  target?: Target | null;
 }
 
 const VALID_GENDERS: Gender[] = ["여성", "남성"];
 const VALID_TARGETS: Target[] = ["youth", "student"];
 const VALID_PRIORITIES: Priority[] = ["1", "23"];
+
+// undefined와 null을 모두 "조건 없음(무시)"으로 취급한다.
+// House 데이터 자체가 성별/주택명/주택형에 null을 쓰므로, 필터 호출 쪽에서도
+// null이 자연스럽게 들어올 수 있다 (예: UI에서 "선택 안 함" 상태를 null로 표현).
+function isProvided<T>(value: T | null | undefined): value is T {
+  return value !== undefined && value !== null;
+}
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -29,6 +36,20 @@ function rentField(target: Target, priority: Priority): string {
 }
 
 /**
+ * target/priority 조합에 대응하는 deposit/rent 필드 이름을 반환한다.
+ * UI 쪽에서 필터와 동일한 기준으로 가격을 표시할 때 재사용한다.
+ */
+export function getPriceFieldNames(
+  target: Target,
+  priority: Priority
+): { depositField: string; rentField: string } {
+  return {
+    depositField: depositField(target, priority),
+    rentField: rentField(target, priority),
+  };
+}
+
+/**
  * filterHouses 인자를 자동 검증한다. 잘못된 값(오타/타입 불일치)은 즉시 에러를 던져
  * "조건이 없어서 무시된 것"과 "값이 잘못돼서 실수로 다 걸러진 것"을 구분한다.
  * (undefined인 조건은 정상이며 그냥 무시한다)
@@ -40,7 +61,7 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
 
   const { district, gender, maxRent, priority, target } = criteria;
 
-  if (district !== undefined) {
+  if (isProvided(district)) {
     if (typeof district !== "string" || district.trim() === "") {
       throw new TypeError(
         `filterHouses: district는 비어있지 않은 문자열이어야 합니다. (received: ${JSON.stringify(district)})`
@@ -52,25 +73,25 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
     }
   }
 
-  if (gender !== undefined && !VALID_GENDERS.includes(gender)) {
+  if (isProvided(gender) && !VALID_GENDERS.includes(gender)) {
     throw new TypeError(
       `filterHouses: gender는 ${VALID_GENDERS.join(" | ")} 중 하나여야 합니다. (received: ${JSON.stringify(gender)})`
     );
   }
 
-  if (target !== undefined && !VALID_TARGETS.includes(target)) {
+  if (isProvided(target) && !VALID_TARGETS.includes(target)) {
     throw new TypeError(
       `filterHouses: target은 ${VALID_TARGETS.join(" | ")} 중 하나여야 합니다. (received: ${JSON.stringify(target)})`
     );
   }
 
-  if (priority !== undefined && !VALID_PRIORITIES.includes(priority)) {
+  if (isProvided(priority) && !VALID_PRIORITIES.includes(priority)) {
     throw new TypeError(
       `filterHouses: priority는 ${VALID_PRIORITIES.join(" | ")} 중 하나여야 합니다. (received: ${JSON.stringify(priority)})`
     );
   }
 
-  if (maxRent !== undefined) {
+  if (isProvided(maxRent)) {
     if (typeof maxRent !== "number" || !Number.isFinite(maxRent) || maxRent < 0) {
       throw new TypeError(
         `filterHouses: maxRent는 0 이상의 유한한 숫자여야 합니다. (received: ${JSON.stringify(maxRent)})`
@@ -81,11 +102,14 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
 
 /**
  * district / gender / maxRent / priority / target 을 모두 AND 조건으로 적용해
- * houses 배열을 필터링한다. 각 조건은 값이 주어지지 않으면(undefined) 무시된다.
+ * houses 배열을 필터링한다. 각 조건은 값이 주어지지 않으면(undefined 또는 null) 무시된다.
  *
  * - gender: 매물의 gender가 null(성별무관)이면 어떤 요청 gender와도 항상 통과한다.
- * - target: 해당 대상군(청년/대학생및취업준비생) 가격이 아예 제공되지 않는(1순위·2~3순위 보증금이 모두 null) 매물은 제외한다.
- * - priority: 해당 순위(1순위/2~3순위) 가격이 아예 제공되지 않는(청년·대학생 보증금이 모두 null) 매물은 제외한다.
+ * - target만 지정: 해당 대상군 가격이 두 순위 모두에서 제공되지 않는(1순위·2~3순위 보증금이 모두 null) 매물만 제외한다.
+ * - priority만 지정: 해당 순위 가격이 두 대상군 모두에서 제공되지 않는(청년·대학생 보증금이 모두 null) 매물만 제외한다.
+ * - target과 priority를 함께 지정: 그 "정확한 조합"의 보증금이 null인 매물을 제외한다.
+ *   (예: 대학생및취업준비생이 1순위엔 있고 2~3순위엔 없는 매물은, target=student·priority=23 조합에서는 제외되어야 한다.
+ *    target/priority를 각각 독립적으로만 검사하면 이런 매물이 잘못 통과해버린다.)
  * - maxRent: target/priority로 정해지는 임대료 컬럼과 비교한다. target/priority 미지정 시 기본값은 "youth"/"1"이다.
  */
 export function filterHouses(houses: House[], criteria: FilterCriteria = {}): House[] {
@@ -97,27 +121,28 @@ export function filterHouses(houses: House[], criteria: FilterCriteria = {}): Ho
   const maxRentField = rentField(effectiveTarget, effectivePriority);
 
   return houses.filter((house) => {
-    if (district !== undefined && house["district"] !== district) {
+    if (isProvided(district) && house["district"] !== district) {
       return false;
     }
 
-    if (gender !== undefined && house["gender"] !== null && house["gender"] !== gender) {
+    if (isProvided(gender) && house["gender"] !== null && house["gender"] !== gender) {
       return false;
     }
 
-    if (target !== undefined) {
+    if (isProvided(target) && isProvided(priority)) {
+      // target과 priority를 함께 지정한 경우, 그 정확한 조합의 가격이 없으면 제외한다.
+      if (house[depositField(target, priority)] === null) return false;
+    } else if (isProvided(target)) {
       const d1 = house[depositField(target, "1")];
       const d23 = house[depositField(target, "23")];
       if (d1 === null && d23 === null) return false;
-    }
-
-    if (priority !== undefined) {
+    } else if (isProvided(priority)) {
       const dYouth = house[depositField("youth", priority)];
       const dStudent = house[depositField("student", priority)];
       if (dYouth === null && dStudent === null) return false;
     }
 
-    if (maxRent !== undefined) {
+    if (isProvided(maxRent)) {
       const rent = house[maxRentField];
       if (typeof rent !== "number" || rent > maxRent) return false;
     }

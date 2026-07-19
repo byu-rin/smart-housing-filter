@@ -1,3 +1,4 @@
+// 필터링된 매물 목록을 카드 형태로 렌더링한다.
 import type { House } from "../debug/validateHtmlToHouseMapping";
 import { getPriceFieldNames, type FilterCriteria } from "../lib/filterHouses";
 

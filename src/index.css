@@ -1,3 +1,4 @@
+/* 앱 전역 스타일: Tailwind 진입점 + 필터/결과 카드 레이아웃 커스텀 CSS */
 @import "tailwindcss";
 
 :root {

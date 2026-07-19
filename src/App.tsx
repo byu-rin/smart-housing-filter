@@ -1,3 +1,4 @@
+// 루트 컴포넌트: houses.json을 로드해 필터 상태를 관리하고 FilterPanel/ResultList에 전달한다.
 import { useMemo, useState } from "react";
 import houseData from "./data/houses.json";
 import type { House } from "./debug/validateHtmlToHouseMapping";

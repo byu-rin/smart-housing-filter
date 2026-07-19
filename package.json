@@ -7,8 +7,6 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "parse:housing": "node scripts/parseHousing.js",
-    "generate:houses": "node scripts/generateHousesJson.js",
     "test:filter": "node scripts/testFilterHouses.ts"
   },
   "dependencies": {

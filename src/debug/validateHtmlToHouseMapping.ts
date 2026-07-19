@@ -1,3 +1,4 @@
+// 앱 시작 시 houses.json 데이터의 구조(키 일치/타입/NaN/빈 문자열)를 검증하는 디버그 유틸.
 export type House = Record<string, unknown>;
 
 interface CheckResult {

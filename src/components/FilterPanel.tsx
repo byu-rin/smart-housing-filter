@@ -1,3 +1,4 @@
+// 필터 조건(자치구/성별/공급대상/순위/최대임대료) 입력 UI. 조건 변경을 부모(App)로 올려보낸다.
 import type { FilterCriteria, Gender, Priority, Target } from "../lib/filterHouses";
 
 interface FilterPanelProps {

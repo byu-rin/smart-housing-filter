@@ -1,3 +1,4 @@
+// 앱 진입점: React 루트를 마운트하고, 시작 시 houses.json 구조를 한 번 검증한다.
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'

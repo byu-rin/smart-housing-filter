@@ -1,3 +1,4 @@
+// district/gender/maxRent/priority/target 조건으로 House 배열을 필터링
 import type { House } from "../debug/validateHtmlToHouseMapping";
 
 export type Target = "youth" | "student";

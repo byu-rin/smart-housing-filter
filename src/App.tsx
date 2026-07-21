@@ -1,16 +1,26 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./layout/Layout";
-import { CATEGORIES } from "./categories";
+import MaeipPage from "./categories/maeip/MaeipPage";
+import AnsimLayout from "./categories/ansim/AnsimLayout";
+import PublicPage from "./categories/ansim/ansim-public/PublicPage";
+import PrivatePage from "./categories/ansim/ansim-private/PrivatePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Navigate to="/maeip" replace />} />
-          {CATEGORIES.map((c) => (
-            <Route key={c.key} path={c.path} element={c.element} />
-          ))}
+          <Route index element={<Navigate to="/housing/maeip" replace />} />
+
+          {/* 청년매입임대 */}
+          <Route path="housing/maeip" element={<MaeipPage />} />
+
+          {/* 청년안심주택 (중첩 라우팅) */}
+          <Route path="housing/ansim" element={<AnsimLayout />}>
+            <Route index element={<Navigate to="public" replace />} />
+            <Route path="public" element={<PublicPage />} />
+            <Route path="private" element={<PrivatePage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

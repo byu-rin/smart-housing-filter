@@ -182,4 +182,53 @@
     min-height: 200px;
     color: var(--color-muted);
   }
+
+  /* Local Navigation Bar (LNB) - Ansim subpages only */
+  .ansim-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .lnb {
+    border-bottom: 1px solid var(--color-border);
+    background-color: #f9f9f9;
+  }
+
+  .lnb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lnb-link {
+    display: inline-block;
+    padding: 12px 16px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .lnb-link:hover {
+    color: var(--color-primary);
+    background-color: #f0f0f0;
+  }
+
+  .lnb-link--active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .lnb-link {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+  }
 }

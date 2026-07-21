@@ -3,9 +3,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
-import houses from './data/houses.json'
-import { validateHtmlToHouseMapping } from './debug/validateHtmlToHouseMapping'
-import { filterHouses } from './lib/filterHouses' // 개발자도구 임시 테스트 코드. 추후 삭제
+import houses from './categories/maeip/data/houses.json'
+import { validateHtmlToHouseMapping } from './categories/maeip/debug/validateHtmlToHouseMapping'
+import { filterHouses } from './categories/maeip/lib/filterHouses' // 개발자도구 임시 테스트 코드. 추후 삭제
 
 
 // HTML -> House[] 매핑이 올바른지 앱 시작 시 한 번만 검증한다.

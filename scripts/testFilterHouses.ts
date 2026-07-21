@@ -1,6 +1,6 @@
 // filterHouses() 동작을 검증하는 단독 실행 테스트 스크립트 (npm run test:filter).
-import { filterHouses } from "../src/lib/filterHouses.ts";
-import { testHouses } from "../src/lib/__fixtures__/testHouses.ts";
+import { filterHouses } from "../src/categories/maeip/lib/filterHouses.ts";
+import { testHouses } from "../src/categories/maeip/lib/__fixtures__/testHouses.ts";
 
 interface TestCase {
   category: string;

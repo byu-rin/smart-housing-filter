@@ -84,5 +84,10 @@
 - Do not modify business logic.
 - Prefer CSS/Tailwind changes over JSX changes.
 - Reuse existing design tokens where possible.
-- Do not introduce new dependencies.
 - Every design change must be reversible without affecting functionality.
+
+## Dependency Policy
+
+- 기존 의존성으로 해결 가능한 경우 새 의존성을 추가하지 않는다.
+- 새 의존성이 필요한 경우 먼저 이유와 대안을 설명한다.
+- package.json 수정 전 반드시 사용자 승인을 받는다.

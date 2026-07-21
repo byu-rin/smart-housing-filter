@@ -9,18 +9,30 @@
     "area": 19.66,
     "eligibility": "청년",
     "unitCount": 57,
-    "rentOptions": [
-      {
-        "label": "A",
-        "deposit": 33300000,
-        "contractAmount": 6660000,
-        "balanceAmount": 26640000,
-        "monthlyRent": 147000
-      }
-    ]
+    "rentLabel": "A",
+    "deposit": 33300000,
+    "contractAmount": 6660000,
+    "balanceAmount": 26640000,
+    "monthlyRent": 147000
   },
   {
     "no": 2,
+    "supplyType": "신규공급",
+    "district": "광진구",
+    "apartmentName": "리마크빌 구의",
+    "address": "서울특별시 광진구 구의동 683",
+    "type": "19",
+    "area": 19.66,
+    "eligibility": "청년",
+    "unitCount": 57,
+    "rentLabel": "B",
+    "deposit": 55500000,
+    "contractAmount": 11100000,
+    "balanceAmount": 44400000,
+    "monthlyRent": 245000
+  },
+  {
+    "no": 3,
     "supplyType": "신규공급",
     "district": "광진구",
     "apartmentName": "리마크빌 구의",
@@ -29,18 +41,30 @@
     "area": 39.48,
     "eligibility": "신혼Ⅰ",
     "unitCount": 16,
-    "rentOptions": [
-      {
-        "label": "B",
-        "deposit": 55500000,
-        "contractAmount": 11100000,
-        "balanceAmount": 44400000,
-        "monthlyRent": 245000
-      }
-    ]
+    "rentLabel": "A",
+    "deposit": 61950000,
+    "contractAmount": 12390000,
+    "balanceAmount": 49560000,
+    "monthlyRent": 274000
   },
   {
-    "no": 3,
+    "no": 4,
+    "supplyType": "신규공급",
+    "district": "광진구",
+    "apartmentName": "리마크빌 구의",
+    "address": "서울특별시 광진구 구의동 683",
+    "type": "39A",
+    "area": 39.48,
+    "eligibility": "신혼Ⅰ",
+    "unitCount": 16,
+    "rentLabel": "B",
+    "deposit": 103250000,
+    "contractAmount": 20650000,
+    "balanceAmount": 82600000,
+    "monthlyRent": 456000
+  },
+  {
+    "no": 5,
     "supplyType": "신규공급",
     "district": "광진구",
     "apartmentName": "리마크빌 구의",
@@ -49,122 +73,154 @@
     "area": 39.48,
     "eligibility": "신혼Ⅰ",
     "unitCount": 12,
-    "rentOptions": [
-      {
-        "label": "A",
-        "deposit": 61950000,
-        "contractAmount": 12390000,
-        "balanceAmount": 49560000,
-        "monthlyRent": 274000
-      }
-    ]
-  },
-  {
-    "no": 4,
-    "supplyType": "신규공급",
-    "district": "중랑구",
-    "apartmentName": "세이지움 태릉입구역 중합구",
-    "address": "서울특별시 중랑구 중화동",
-    "type": "18A",
-    "area": 18.36,
-    "eligibility": "청년",
-    "unitCount": 292,
-    "rentOptions": [
-      {
-        "label": "A",
-        "deposit": 28050000,
-        "contractAmount": 5610000,
-        "balanceAmount": 22440000,
-        "monthlyRent": 124000
-      },
-      {
-        "label": "B",
-        "deposit": 46750000,
-        "contractAmount": 9350000,
-        "balanceAmount": 37400000,
-        "monthlyRent": 206000
-      }
-    ]
-  },
-  {
-    "no": 5,
-    "supplyType": "신규공급",
-    "district": "중랑구",
-    "apartmentName": "세이지움 태릉입구역 중합구",
-    "address": "서울특별시 중랑구 중화동",
-    "type": "36",
-    "area": 36.74,
-    "eligibility": "신혼Ⅰ",
-    "unitCount": 67,
-    "rentOptions": [
-      {
-        "label": "A",
-        "deposit": 50400000,
-        "contractAmount": 10080000,
-        "balanceAmount": 40320000,
-        "monthlyRent": 223000
-      },
-      {
-        "label": "B",
-        "deposit": 84000000,
-        "contractAmount": 16800000,
-        "balanceAmount": 67200000,
-        "monthlyRent": 371000
-      }
-    ]
+    "rentLabel": "A",
+    "deposit": 61950000,
+    "contractAmount": 12390000,
+    "balanceAmount": 49560000,
+    "monthlyRent": 274000
   },
   {
     "no": 6,
     "supplyType": "신규공급",
-    "district": "중랑구",
-    "apartmentName": "세이지움 태릉입구역 중합구",
-    "address": "서울특별시 중랑구 중화동",
-    "type": "38",
-    "area": 38.61,
+    "district": "광진구",
+    "apartmentName": "리마크빌 구의",
+    "address": "서울특별시 광진구 구의동 683",
+    "type": "39B",
+    "area": 39.48,
     "eligibility": "신혼Ⅰ",
-    "unitCount": 20,
-    "rentOptions": [
-      {
-        "label": "A",
-        "deposit": 52950000,
-        "contractAmount": 10590000,
-        "balanceAmount": 42360000,
-        "monthlyRent": 234000
-      },
-      {
-        "label": "B",
-        "deposit": 88250000,
-        "contractAmount": 17650000,
-        "balanceAmount": 70600000,
-        "monthlyRent": 390000
-      }
-    ]
+    "unitCount": 12,
+    "rentLabel": "B",
+    "deposit": 103250000,
+    "contractAmount": 20650000,
+    "balanceAmount": 82600000,
+    "monthlyRent": 456000
   },
   {
     "no": 7,
     "supplyType": "신규공급",
     "district": "중랑구",
-    "apartmentName": "세이지움 태릉입구역 중합구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "18A",
+    "area": 18.36,
+    "eligibility": "청년",
+    "unitCount": 292,
+    "rentLabel": "A",
+    "deposit": 28050000,
+    "contractAmount": 5610000,
+    "balanceAmount": 22440000,
+    "monthlyRent": 124000
+  },
+  {
+    "no": 8,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "18A",
+    "area": 18.36,
+    "eligibility": "청년",
+    "unitCount": 292,
+    "rentLabel": "B",
+    "deposit": 46750000,
+    "contractAmount": 9350000,
+    "balanceAmount": 37400000,
+    "monthlyRent": 206000
+  },
+  {
+    "no": 9,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "36",
+    "area": 36.74,
+    "eligibility": "신혼Ⅰ",
+    "unitCount": 67,
+    "rentLabel": "A",
+    "deposit": 50400000,
+    "contractAmount": 10080000,
+    "balanceAmount": 40320000,
+    "monthlyRent": 223000
+  },
+  {
+    "no": 10,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "36",
+    "area": 36.74,
+    "eligibility": "신혼Ⅰ",
+    "unitCount": 67,
+    "rentLabel": "B",
+    "deposit": 84000000,
+    "contractAmount": 16800000,
+    "balanceAmount": 67200000,
+    "monthlyRent": 371000
+  },
+  {
+    "no": 11,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "38",
+    "area": 38.61,
+    "eligibility": "신혼Ⅰ",
+    "unitCount": 20,
+    "rentLabel": "A",
+    "deposit": 52950000,
+    "contractAmount": 10590000,
+    "balanceAmount": 42360000,
+    "monthlyRent": 234000
+  },
+  {
+    "no": 12,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "38",
+    "area": 38.61,
+    "eligibility": "신혼Ⅰ",
+    "unitCount": 20,
+    "rentLabel": "B",
+    "deposit": 88250000,
+    "contractAmount": 17650000,
+    "balanceAmount": 70600000,
+    "monthlyRent": 390000
+  },
+  {
+    "no": 13,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
     "address": "서울특별시 중랑구 중화동",
     "type": "59",
     "area": 59.51,
     "eligibility": "신혼Ⅱ",
     "unitCount": 2,
-    "rentOptions": [
-      {
-        "label": "C",
-        "deposit": 148500000,
-        "contractAmount": 29700000,
-        "balanceAmount": 118800000,
-        "monthlyRent": 656000
-      },
-      {
-        "label": "D",
-        "deposit": 173250000,
-        "contractAmount": 34650000,
-        "balanceAmount": 138600000,
-        "monthlyRent": 765000
-      }
-    ]
+    "rentLabel": "C",
+    "deposit": 148500000,
+    "contractAmount": 29700000,
+    "balanceAmount": 118800000,
+    "monthlyRent": 656000
+  },
+  {
+    "no": 14,
+    "supplyType": "신규공급",
+    "district": "중랑구",
+    "apartmentName": "세이지움 태릉입구역",
+    "address": "서울특별시 중랑구 중화동",
+    "type": "59",
+    "area": 59.51,
+    "eligibility": "신혼Ⅱ",
+    "unitCount": 2,
+    "rentLabel": "D",
+    "deposit": 173250000,
+    "contractAmount": 34650000,
+    "balanceAmount": 138600000,
+    "monthlyRent": 765000
   }
 ]

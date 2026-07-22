@@ -151,10 +151,19 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
         <br />
         <input
           type="number"
-          min={0}
+          min={1}
+          placeholder="예시: 500000"
           disabled={criteria.maxRent == null}
           value={criteria.maxRent ?? ""}
-          onChange={(e) => set("maxRent", e.target.value === "" ? 0 : Number(e.target.value))}
+          onChange={(e) => {
+            const value = e.target.value.trim();
+            if (value === "") {
+              set("maxRent", null);
+            } else {
+              const num = Number(value);
+              if (num > 0) set("maxRent", num);
+            }
+          }}
         />
       </div>
 
@@ -170,10 +179,19 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
         <br />
         <input
           type="number"
-          min={0}
+          min={1}
+          placeholder="예시: 50000000"
           disabled={criteria.maxDeposit == null}
           value={criteria.maxDeposit ?? ""}
-          onChange={(e) => set("maxDeposit", e.target.value === "" ? 0 : Number(e.target.value))}
+          onChange={(e) => {
+            const value = e.target.value.trim();
+            if (value === "") {
+              set("maxDeposit", null);
+            } else {
+              const num = Number(value);
+              if (num > 0) set("maxDeposit", num);
+            }
+          }}
         />
       </div>
 

@@ -10,7 +10,11 @@ import PrivatePage from "./categories/ansim/ansim-private/PrivatePage";
 
 function App() {
   useEffect(() => {
-    toast.info("환영합니다!");
+    const hasShownWelcome = localStorage.getItem("hasShownWelcomeToast");
+    if (!hasShownWelcome) {
+      toast.info("환영합니다!");
+      localStorage.setItem("hasShownWelcomeToast", "true");
+    }
   }, []);
 
   return (

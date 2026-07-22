@@ -143,33 +143,6 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
         <label>
           <input
             type="checkbox"
-            checked={criteria.maxRent != null}
-            onChange={(e) => set("maxRent", e.target.checked ? maxRentCeiling : null)}
-          />
-          최대 임대료(원)
-        </label>
-        <br />
-        <input
-          type="number"
-          min={1}
-          placeholder="예시: 500000"
-          disabled={criteria.maxRent == null}
-          value={criteria.maxRent ?? ""}
-          onChange={(e) => {
-            const value = e.target.value.trim();
-            if (value === "") {
-              return;
-            }
-            const num = Number(value);
-            if (num > 0) set("maxRent", num);
-          }}
-        />
-      </div>
-
-      <div>
-        <label>
-          <input
-            type="checkbox"
             checked={criteria.maxDeposit != null}
             onChange={(e) => set("maxDeposit", e.target.checked ? maxDepositCeiling : null)}
           />
@@ -178,7 +151,8 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
         <br />
         <input
           type="number"
-          min={1}
+          min={0}
+          step="100000"
           placeholder="예시: 50000000"
           disabled={criteria.maxDeposit == null}
           value={criteria.maxDeposit ?? ""}
@@ -189,6 +163,34 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
             }
             const num = Number(value);
             if (num > 0) set("maxDeposit", num);
+          }}
+        />
+      </div>
+
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.maxRent != null}
+            onChange={(e) => set("maxRent", e.target.checked ? maxRentCeiling : null)}
+          />
+          최대 임대료(원)
+        </label>
+        <br />
+        <input
+          type="number"
+          min={0}
+          step="10000"
+          placeholder="예시: 500000"
+          disabled={criteria.maxRent == null}
+          value={criteria.maxRent ?? ""}
+          onChange={(e) => {
+            const value = e.target.value.trim();
+            if (value === "") {
+              return;
+            }
+            const num = Number(value);
+            if (num > 0) set("maxRent", num);
           }}
         />
       </div>

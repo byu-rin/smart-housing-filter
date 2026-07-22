@@ -1,7 +1,7 @@
 // 청년안심주택 데이터 타입 정의
 // 1건 = 공고 표의 한 행 = 하나의 모집조건(임대료구분 단위)
 
-export type AnsimEligibility = "청년" | "신혼Ⅰ" | "신혼Ⅱ";
+export type AnsimEligibility = "청년" | "신혼Ⅰ" | "신혼Ⅱ" | "청년(셰어)";
 export type AnsimSupplyType = "신규공급" | "재공급" | "셰어형";
 
 export interface AnsimUnitType {

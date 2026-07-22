@@ -158,11 +158,10 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
           onChange={(e) => {
             const value = e.target.value.trim();
             if (value === "") {
-              set("maxRent", null);
-            } else {
-              const num = Number(value);
-              if (num > 0) set("maxRent", num);
+              return;
             }
+            const num = Number(value);
+            if (num > 0) set("maxRent", num);
           }}
         />
       </div>
@@ -186,11 +185,10 @@ function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, o
           onChange={(e) => {
             const value = e.target.value.trim();
             if (value === "") {
-              set("maxDeposit", null);
-            } else {
-              const num = Number(value);
-              if (num > 0) set("maxDeposit", num);
+              return;
             }
+            const num = Number(value);
+            if (num > 0) set("maxDeposit", num);
           }}
         />
       </div>

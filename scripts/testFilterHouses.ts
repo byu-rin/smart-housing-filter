@@ -139,6 +139,34 @@ test("자동 검증", "district='강북' (오타, 데이터셋에 없는 값) ->
   assertEqual(result.length, 0, "오타 district에 대해 0건이 아님");
 });
 
+// ---------- 9. 최대 보증금(maxDeposit) ----------
+test("보증금", "maxDeposit=20000000 (기본값 youth/1) -> depositYouth1 <= 20000000 인 매물만", () => {
+  const result = filterHouses(testHouses, { maxDeposit: 20000000 });
+  assertNos(result, [1, 3, 7, 8, 9, 10, 13], "maxDeposit=20000000 결과 no 목록 불일치");
+});
+
+test("보증금", "maxDeposit=20000000 + maxRent=200000 -> 두 조건 모두 만족하는 매물만", () => {
+  const result = filterHouses(testHouses, { maxDeposit: 20000000, maxRent: 200000 });
+  assertNos(result, [1, 3, 7, 9, 10, 13], "maxDeposit+maxRent 결과 no 목록 불일치");
+});
+
+test("보증금", "maxDeposit=20500000 + district='강동구' -> 해당 자치구 + 보증금 조건 동시 만족", () => {
+  const result = filterHouses(testHouses, { maxDeposit: 20500000, district: "강동구" });
+  assertNos(result, [1, 12], "maxDeposit+district 결과 no 목록 불일치");
+});
+
+test("보증금", "모든 필터 동시 적용 (district+gender+target+priority+maxRent+maxDeposit)", () => {
+  const result = filterHouses(testHouses, {
+    district: "강동구",
+    gender: "여성",
+    target: "youth",
+    priority: "1",
+    maxRent: 220000,
+    maxDeposit: 20500000,
+  });
+  assertNos(result, [1, 12], "전체 필터 동시 적용 결과 no 목록 불일치");
+});
+
 // ---------- 실행 ----------
 let passCount = 0;
 let failCount = 0;

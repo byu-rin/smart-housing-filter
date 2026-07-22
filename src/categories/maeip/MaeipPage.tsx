@@ -11,6 +11,7 @@ const EMPTY_CRITERIA: FilterCriteria = {
   district: null,
   gender: null,
   maxRent: null,
+  maxDeposit: null,
   priority: null,
   target: null,
 };
@@ -37,6 +38,18 @@ function MaeipPage() {
     return max;
   }, []);
 
+  const maxDepositCeiling = useMemo(() => {
+    const depositFields = ["depositYouth1", "depositStudent1", "depositYouth23", "depositStudent23"] as const;
+    let max = 0;
+    houses.forEach((h) => {
+      depositFields.forEach((f) => {
+        const v = h[f];
+        if (typeof v === "number" && v > max) max = v;
+      });
+    });
+    return max;
+  }, []);
+
   const results = useMemo(() => filterHouses(houses, criteria), [criteria]);
 
   return (
@@ -46,6 +59,7 @@ function MaeipPage() {
           criteria={criteria}
           districts={districts}
           maxRentCeiling={maxRentCeiling}
+          maxDepositCeiling={maxDepositCeiling}
           onChange={setCriteria}
         />
       </aside>

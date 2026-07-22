@@ -5,6 +5,7 @@ interface FilterPanelProps {
   criteria: FilterCriteria;
   districts: string[];
   maxRentCeiling: number;
+  maxDepositCeiling: number;
   onChange: (next: FilterCriteria) => void;
 }
 
@@ -12,6 +13,7 @@ const EMPTY_CRITERIA: FilterCriteria = {
   district: null,
   gender: null,
   maxRent: null,
+  maxDeposit: null,
   priority: null,
   target: null,
 };
@@ -38,7 +40,7 @@ const DEFAULTS = {
   priority: "1" as Priority,
 };
 
-function FilterPanel({ criteria, districts, maxRentCeiling, onChange }: FilterPanelProps) {
+function FilterPanel({ criteria, districts, maxRentCeiling, maxDepositCeiling, onChange }: FilterPanelProps) {
   const set = <K extends keyof FilterCriteria>(key: K, value: FilterCriteria[K]) => {
     onChange({ ...criteria, [key]: value });
   };
@@ -153,6 +155,25 @@ function FilterPanel({ criteria, districts, maxRentCeiling, onChange }: FilterPa
           disabled={criteria.maxRent == null}
           value={criteria.maxRent ?? ""}
           onChange={(e) => set("maxRent", e.target.value === "" ? 0 : Number(e.target.value))}
+        />
+      </div>
+
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={criteria.maxDeposit != null}
+            onChange={(e) => set("maxDeposit", e.target.checked ? maxDepositCeiling : null)}
+          />
+          최대 보증금(원)
+        </label>
+        <br />
+        <input
+          type="number"
+          min={0}
+          disabled={criteria.maxDeposit == null}
+          value={criteria.maxDeposit ?? ""}
+          onChange={(e) => set("maxDeposit", e.target.value === "" ? 0 : Number(e.target.value))}
         />
       </div>
 

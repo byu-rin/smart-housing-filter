@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./layout/Layout";
 import MaeipPage from "./categories/maeip/MaeipPage";
 import AnsimLayout from "./categories/ansim/AnsimLayout";
@@ -6,6 +9,10 @@ import PublicPage from "./categories/ansim/ansim-public/PublicPage";
 import PrivatePage from "./categories/ansim/ansim-private/PrivatePage";
 
 function App() {
+  useEffect(() => {
+    toast.info("환영합니다!");
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,6 +30,11 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={6000}
+        theme="light"
+      />
     </BrowserRouter>
   );
 }

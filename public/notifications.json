@@ -1,0 +1,11 @@
+[
+  {
+    "id": "notice-001",
+    "type": "notice",
+    "title": "TESTTTTEST",
+    "message": "ESTESTEST",
+    "createdAt": "2026-07-21T10:00:00+09:00",
+    "link": "/housing/ansim/public",
+    "priority": "important"
+  }
+]

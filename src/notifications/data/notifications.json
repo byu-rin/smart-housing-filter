@@ -1,0 +1,44 @@
+[
+  {
+    "id": "notice-001",
+    "type": "notice",
+    "title": "청년안심주택 공공임대 신규 공고",
+    "message": "서울시 청년안심주택 공공임대(공급형) 466세대 신규 공고가 등록되었습니다. 리마크빌 구의(광진구), 세이지움 태릉입구역(중랑구) 단지에서 모집 중입니다.",
+    "createdAt": "2026-07-21T10:00:00+09:00",
+    "link": "/housing/ansim/public",
+    "priority": "important"
+  },
+  {
+    "id": "notice-002",
+    "type": "notice",
+    "title": "청년매입임대 신규 공고 - 7월",
+    "message": "서울시 청년매입임대주택 7월 공고가 등록되었습니다. 849건의 매물 정보를 확인하세요.",
+    "createdAt": "2026-07-20T14:30:00+09:00",
+    "link": "/housing/maeip",
+    "priority": "normal"
+  },
+  {
+    "id": "maintenance-001",
+    "type": "maintenance",
+    "title": "정기 서버 점검 안내",
+    "message": "2026년 7월 25일 토요일 22:00 ~ 23:00 서버 정기 점검으로 일시적으로 서비스 이용이 제한될 예정입니다.",
+    "createdAt": "2026-07-21T09:00:00+09:00",
+    "priority": "important"
+  },
+  {
+    "id": "update-001",
+    "type": "update",
+    "title": "최대 보증금 필터 기능 추가",
+    "message": "청년매입임대 필터에 최대 보증금 조건이 추가되었습니다. 보증금 상한선을 지정하여 더욱 정확한 검색이 가능합니다.",
+    "createdAt": "2026-07-19T15:20:00+09:00",
+    "priority": "normal"
+  },
+  {
+    "id": "update-002",
+    "type": "update",
+    "title": "중첩 라우팅 구조 개선",
+    "message": "청년안심주택의 공공임대/민간임대 구분이 개선되었습니다. 더욱 명확한 카테고리 구조로 검색이 용이해졌습니다.",
+    "createdAt": "2026-07-18T11:45:00+09:00",
+    "priority": "normal"
+  }
+]

@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { useNotifications } from "../notifications/useNotifications";
+import { useNotificationRead } from "../notifications/useNotificationRead";
 import type { Notification } from "../notifications/types";
 
 function NotificationInbox() {
   const [isOpen, setIsOpen] = useState(false);
   const notifications = useNotifications();
+  const { unreadCount, markAllAsRead } = useNotificationRead(notifications);
 
   const togglePanel = () => {
-    setIsOpen(!isOpen);
+    const next = !isOpen;
+    setIsOpen(next);
+    if (next) {
+      markAllAsRead();
+    }
   };
 
   const formatDate = (isoString: string): string => {
@@ -65,8 +71,8 @@ function NotificationInbox() {
         aria-expanded={isOpen}
       >
         🔔
-        {notifications.length > 0 && (
-          <span className="notification-badge">{notifications.length}</span>
+        {unreadCount > 0 && (
+          <span className="notification-badge">{unreadCount}</span>
         )}
       </button>
 

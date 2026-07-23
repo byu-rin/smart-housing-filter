@@ -7,8 +7,11 @@ import MaeipPage from "./categories/maeip/MaeipPage";
 import AnsimLayout from "./categories/ansim/AnsimLayout";
 import PublicPage from "./categories/ansim/ansim-public/PublicPage";
 import PrivatePage from "./categories/ansim/ansim-private/PrivatePage";
+import { useNotificationToast } from "./notifications/useNotificationToast";
 
 function App() {
+  useNotificationToast();
+
   useEffect(() => {
     const hasShownWelcome = localStorage.getItem("hasShownWelcomeToast");
     if (!hasShownWelcome) {

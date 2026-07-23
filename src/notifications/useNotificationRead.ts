@@ -1,3 +1,5 @@
+// 마지막으로 읽은 알림 관리 lastReadNotificationId
+
 import { useCallback, useState } from "react";
 import type { Notification } from "./types";
 
@@ -29,6 +31,7 @@ export function useNotificationRead(notifications: Notification[]) {
           (n) => new Date(n.createdAt).getTime() > new Date(lastRead.createdAt).getTime()
         ).length;
 
+  // 모두읽음 처리      
   const markAllAsRead = useCallback(() => {
     const latest = getLatestNotification(notifications);
     if (!latest) return;

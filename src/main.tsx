@@ -17,6 +17,6 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
-// 개발자도구 임시 테스트 코드. 추후 삭제
+// 개발자도구 임시 테스트 코드
 (window as any).houses = houses;
 (window as any).filterHouses = filterHouses;

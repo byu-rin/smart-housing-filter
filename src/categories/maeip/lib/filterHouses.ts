@@ -9,6 +9,7 @@ export interface FilterCriteria {
   district?: string | null;
   gender?: Gender | null;
   maxRent?: number | null;
+  maxDeposit?: number | null;
   priority?: Priority | null;
   target?: Target | null;
 }
@@ -60,7 +61,7 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
     throw new TypeError(`filterHouses: houses는 배열이어야 합니다. (received: ${typeof houses})`);
   }
 
-  const { district, gender, maxRent, priority, target } = criteria;
+  const { district, gender, maxRent, maxDeposit, priority, target } = criteria;
 
   if (isProvided(district)) {
     if (typeof district !== "string" || district.trim() === "") {
@@ -99,6 +100,14 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
       );
     }
   }
+
+  if (isProvided(maxDeposit)) {
+    if (typeof maxDeposit !== "number" || !Number.isFinite(maxDeposit) || maxDeposit < 0) {
+      throw new TypeError(
+        `filterHouses: maxDeposit는 0 이상의 유한한 숫자여야 합니다. (received: ${JSON.stringify(maxDeposit)})`
+      );
+    }
+  }
 }
 
 /**
@@ -116,10 +125,11 @@ function validateCriteria(houses: House[], criteria: FilterCriteria): void {
 export function filterHouses(houses: House[], criteria: FilterCriteria = {}): House[] {
   validateCriteria(houses, criteria);
 
-  const { district, gender, maxRent, priority, target } = criteria;
+  const { district, gender, maxRent, maxDeposit, priority, target } = criteria;
   const effectiveTarget: Target = target ?? "youth";
   const effectivePriority: Priority = priority ?? "1";
   const maxRentField = rentField(effectiveTarget, effectivePriority);
+  const maxDepositField = depositField(effectiveTarget, effectivePriority);
 
   return houses.filter((house) => {
     if (isProvided(district) && house["district"] !== district) {
@@ -146,6 +156,11 @@ export function filterHouses(houses: House[], criteria: FilterCriteria = {}): Ho
     if (isProvided(maxRent)) {
       const rent = house[maxRentField];
       if (typeof rent !== "number" || rent > maxRent) return false;
+    }
+
+    if (isProvided(maxDeposit)) {
+      const deposit = house[maxDepositField];
+      if (typeof deposit !== "number" || deposit > maxDeposit) return false;
     }
 
     return true;

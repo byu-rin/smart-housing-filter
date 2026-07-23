@@ -23,6 +23,11 @@
 - 존재하지 않는 파일이나 함수는 가정하지 않는다.
 - 불확실하면 먼저 코드베이스를 탐색한다.
 
+# Frontend Design Discipline (Anti-AI Slop)
+
+- AI 특유의 뻔한 디자인(Inter/Roboto 폰트 도배, 보라색/연청색 그라데이션, 불필요한 반투명 유리 효과 카드 디자인)을 절대 사용하지 마세요.
+- 서비스 성격에 맞는 대담하고 의도적인 디자인 방향과 고유한 컬러 팔레트를 정의하여 프로덕션 수준의 고품질 UI를 빌드하세요.
+
 ## Architecture
 
 - 기존 아키텍처를 유지한다.
@@ -84,5 +89,10 @@
 - Do not modify business logic.
 - Prefer CSS/Tailwind changes over JSX changes.
 - Reuse existing design tokens where possible.
-- Do not introduce new dependencies.
 - Every design change must be reversible without affecting functionality.
+
+## Dependency Policy
+
+- 기존 의존성으로 해결 가능한 경우 새 의존성을 추가하지 않는다.
+- 새 의존성이 필요한 경우 먼저 이유와 대안을 설명한다.
+- package.json 수정 전 반드시 사용자 승인을 받는다.

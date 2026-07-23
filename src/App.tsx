@@ -9,14 +9,17 @@ import PublicPage from "./categories/ansim/ansim-public/PublicPage";
 import PrivatePage from "./categories/ansim/ansim-private/PrivatePage";
 import { useNotificationToast } from "./notifications/useNotificationToast";
 
-function App() {
-  useNotificationToast();
+const WELCOME_TOAST_KEY = "hasShownWelcomeToast";
 
+function App() {
+  
+  useNotificationToast();
   useEffect(() => {
-    const hasShownWelcome = localStorage.getItem("hasShownWelcomeToast");
-    if (!hasShownWelcome) {
+
+    const welcomeToastKey = localStorage.getItem(WELCOME_TOAST_KEY);
+    if (!welcomeToastKey) {
       toast.info("환영합니다!");
-      localStorage.setItem("hasShownWelcomeToast", "true");
+      localStorage.setItem(WELCOME_TOAST_KEY, "true");
     }
   }, []);
 

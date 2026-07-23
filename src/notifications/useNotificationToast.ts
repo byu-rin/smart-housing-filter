@@ -5,6 +5,7 @@ import type { Notification } from "./types";
 
 const DISPLAYED_NOTIFICATIONS_KEY = "displayedNotificationIds";
 
+// local storage 에서 이미 표시된 알림들의 id 읽음.
 function readDisplayedIds(): string[] {
   try {
     const stored = localStorage.getItem(DISPLAYED_NOTIFICATIONS_KEY);
@@ -14,6 +15,7 @@ function readDisplayedIds(): string[] {
   }
 }
 
+// 표시된 알림들의 ID 를 local storage 에 저장
 function saveDisplayedIds(ids: string[]): void {
   try {
     localStorage.setItem(DISPLAYED_NOTIFICATIONS_KEY, JSON.stringify(ids));
@@ -22,6 +24,7 @@ function saveDisplayedIds(ids: string[]): void {
   }
 }
 
+// 알림 타입, 우선순위 기반 결정
 function getToastType(notification: Notification): "info" | "warning" | "error" | "success" {
   if (notification.priority === "important") {
     return notification.type === "maintenance" ? "warning" : "success";
@@ -29,6 +32,7 @@ function getToastType(notification: Notification): "info" | "warning" | "error" 
   return "info";
 }
 
+// local storage 대조 후 새 알림만 toast 띄움
 export function useNotificationToast() {
   const notifications = useNotifications();
 

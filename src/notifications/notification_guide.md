@@ -61,7 +61,7 @@ index.html 로드 → main.tsx → App 컴포넌트 마운트
         ↓
   - 라인 13: useNotificationToast() 호출
         ↓
-    [STEP 1-1] useNotificationToast() 내부 // 2026-07-23 여기까지 읽음. 구글제미나이 기록 + gpt yes or no
+    [STEP 1-1] useNotificationToast() 내부
             ↓
     - 라인 33: useNotifications() 호출
             ↓
@@ -151,7 +151,7 @@ index.html 로드 → main.tsx → App 컴포넌트 마운트
 NotificationInbox 컴포넌트가 렌더링될 때:
 
 ```
-NotificationInbox 렌더링
+NotificationInbox 렌더링 // 여기부터 시작! 2026-07-24
         ↓
 - 라인 8: useNotifications() 호출
         ↓

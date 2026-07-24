@@ -5,6 +5,7 @@ import type { Notification } from "./types";
 
 const LAST_READ_KEY = "lastReadNotificationId";
 
+// local storage 에서 마지막으로 읽은 알림 id 검색
 function readStoredLastReadId(): string | null {
   try {
     return localStorage.getItem(LAST_READ_KEY);
@@ -13,6 +14,7 @@ function readStoredLastReadId(): string | null {
   }
 }
 
+// timestamp 비교하여 최근의 알림 찾기(createdAt)
 function getLatestNotification(notifications: Notification[]): Notification | null {
   if (notifications.length === 0) return null;
   return notifications.reduce((latest, n) =>
@@ -20,6 +22,7 @@ function getLatestNotification(notifications: Notification[]): Notification | nu
   );
 }
 
+// noti 읽음 상태 관리. 읽지않은 알림 개수 계산
 export function useNotificationRead(notifications: Notification[]) {
   const [lastReadId, setLastReadId] = useState<string | null>(readStoredLastReadId);
 

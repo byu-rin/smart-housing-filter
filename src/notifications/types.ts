@@ -9,7 +9,7 @@ export interface Notification {
   type: NotificationType;
   title: string;
   message: string;
-  createdAt: string;   // ISO 8601 문자열 (예: "2026-07-21T10:00:00+09:00")
-  link?: string;       // 클릭 시 이동할 경로/URL (선택)
+  createdAt: string; // 2026-07-21T10:00:00+09:00
+  link?: string;
   priority: NotificationPriority;
 }
